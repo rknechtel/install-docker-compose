@@ -1,0 +1,19 @@
+name: "install-dockerecompose"
+description: "Install Docker Compose"
+
+inputs:
+  dockercompose_version:
+    description: 'docker-compose version to install'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Install Docker Compose"
+      shell: bash
+      run: |
+        echo "Installing docker-compose."
+        sudo curl -L "https://github.com/docker/compose/releases/download/${{ inputs.dockercompose_version }}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        docker-compose --version
+      
